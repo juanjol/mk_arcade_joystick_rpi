@@ -138,12 +138,13 @@ struct mk_subdev {
 };
 
 static struct mk *mk_base;
-
-// Map of the gpios :                     up, down, left, right, start, select, a,  b,  tr, y,  x,  tl, hk
+   
+// Map of the gpios :                     up, down, left, right, start, select,  a,  b,  tr,  y,  x,  tl, hk
+static const int mk_arcade_gpio_maps[] = {16,   26,    4,    19,     6,      5, 14, 15,  13, 18, 20,  12, 2 };
 //static const int mk_arcade_gpio_maps[] = {4,  17,    27,  22,    10,    9,      25, 24, 23, 18, 15, 14, 2 };
-static const int mk_arcade_gpio_maps[] = {16,  26,    4, 19,   6,    5,      14, 15, 13, 18, 20, 14, 2 };
 // 2nd joystick on the b+ GPIOS                 up, down, left, right, start, select, a,  b,  tr, y,  x,  tl, hk
-static const int mk_arcade_gpio_maps_bplus[] = {11, 5,    6,    13,    19,    26,     21, 20, 16, 12, 7,  8,  3 };
+// static const int mk_arcade_gpio_maps_bplus[] = {11, 5,    6,    13,    19,    26,     21, 20, 16, 12, 7,  8,  3 };
+static const int mk_arcade_gpio_maps_bplus[] = {16,   26,    4,    19,     6,      5, 14, 15,  13, 18, 20,  12, 2 }
 
 // Map joystick on the b+ GPIOS with TFT      up, down, left, right, start, select, a,  b,  tr, y,  x,  tl, hk
 static const int mk_arcade_gpio_maps_tft[] = {21, 13,    26,    19,    5,    6,     22, 4, 20, 17, 27,  16, 12};
@@ -309,8 +310,9 @@ static int __init mk_setup_pad(struct mk *mk, int idx, int pad_type_arg) {
     struct input_dev *input_dev;
     int i, pad_type;
     int err;
+    pr_err("PiGRRL2 custom gpio by Juanjo *DEBUG*");
     pr_err("pad type : %d\n",pad_type_arg);
-
+    
     pad_type = pad_type_arg;
 
     if (pad_type < 1 || pad_type >= MK_MAX) {
